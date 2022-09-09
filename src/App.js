@@ -1,22 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { matrix, lifeStep } from "./core/life";
 
 function App() {
+  let life = matrix;
+
+  const step = () => {
+    life = lifeStep(life);
+    console.table(life);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Game of life</h1>
+        <button onClick={step}> Run step</button>
       </header>
     </div>
   );
