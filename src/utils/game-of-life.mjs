@@ -31,6 +31,7 @@ export const lifeStep = (matrix) => {
   });
 };
 
+// TODO: Fix this logic to use booleans inteand of numbers
 const cellDecision = (matrix, cell, rowIndex, colIndex, rowLimit, colLimit) => {
   let counter = 0;
   for (let r = rowIndex - 1; r <= rowIndex + 1; r++) {
