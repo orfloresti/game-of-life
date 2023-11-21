@@ -5,9 +5,9 @@ function App() {
   return (
     <>
       <h1>
-        Game Of Life
+        {`Conway's Game of Life`}
       </h1>
-      <Board rows={20} columns={20} />
+      <Board rows={6} columns={8} />
     </>
   )
 }
