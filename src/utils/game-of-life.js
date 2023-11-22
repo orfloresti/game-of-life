@@ -28,33 +28,38 @@ export const lifeStep = (matrix) => {
  * @returns 
  */
 const cellDecision = (matrix, cell, rowIndex, colIndex, rowLimit, colLimit) => {
-  let counter = 0;
-  for (let r = rowIndex - 1; r <= rowIndex + 1; r++) {
-    for (let c = colIndex - 1; c <= colIndex + 1; c++) {
-      if (r >= 0 && r < rowLimit && c >= 0 && c < colLimit) {
-        if(matrix[r][c]){
-          counter = counter + 1;
-        }
+  const rowStart = rowIndex - 1 < 0 ? 0 : rowIndex - 1;
+  const rowEnd = rowIndex + 1 > rowLimit - 1 ? rowLimit - 1 : rowIndex + 1;
+  const colStart = colIndex - 1 < 0 ? 0 : colIndex - 1;
+  const colEnd = colIndex + 1 > colLimit - 1 ? colLimit - 1 : colIndex + 1;
+  
+  let neighbors = 0;
+  for (let row = rowStart; row <= rowEnd; row++) {
+    for (let col = colStart; col <= colEnd; col++) {
+      if(row === rowIndex && col === colIndex) {
+        continue;
+      }
+      if(matrix[row][col]){
+        neighbors = neighbors + 1;
       }
     }
   }
   
   if(cell) {
-    counter = counter - 1;
-    if( counter > 3) {
+    if( neighbors > 3) {
       return false;
     }
-    if ( counter <= 1) {
+    if ( neighbors <= 1) {
       return false;
     }
 
-    if( counter === 2 || counter === 3) {
+    if( neighbors === 2 || neighbors === 3) {
       return true;
     }
   }
 
   if(!cell) {
-    if(counter === 3) {
+    if(neighbors === 3) {
       return true;
     }
   }

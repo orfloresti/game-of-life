@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Cell from "../cell/Cell";
 import { useState } from 'react';
 import { generateMatrix } from '../../utils/matrix.util';
-import { lifeStep } from '../../utils/game-of-life.mjs';
+import { lifeStep } from '../../utils/game-of-life.js';
 
 const Board = ({ rows, columns }) => {
 
@@ -23,6 +23,7 @@ const Board = ({ rows, columns }) => {
     <>
       <button onClick={handleNextStep}>Next step</button>
       <table>
+        <tbody>
         {
           board.map((row, rowPosition) =>
             <tr key={`${rowPosition}`}>
@@ -40,6 +41,7 @@ const Board = ({ rows, columns }) => {
             </tr>
           )
         }
+        </tbody>
       </table>
     </>
   )
