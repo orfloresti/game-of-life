@@ -1,5 +1,5 @@
 // Get new matrix
-export const lifeStep = (matrix) => {
+export const nextGeneration = (matrix) => {
   const rowLimit = matrix.length;
   const colLimit = matrix[0].length;
 
@@ -61,7 +61,22 @@ const cellDecision = (matrix, cell, rowIndex, colIndex, rowLimit, colLimit) => {
   if(!cell) {
     if(neighbors === 3) {
       return true;
+    } else {
+      return false;
     }
   }
-
 };
+
+/**
+ * 
+ * @param {*} matrix 
+ * @returns 
+ */
+export const getPopulation = (matrix) => {
+  return matrix.reduce(
+    (accumulatorRow, currentRow) =>
+      accumulatorRow + currentRow.reduce(
+        (accumulatorCol, currentCol) => currentCol ? (accumulatorCol + 1) : accumulatorCol
+        , 0)
+    , 0)
+}

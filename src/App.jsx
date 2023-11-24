@@ -7,7 +7,7 @@ function App() {
       <h1>
         {`Conway's Game of Life`}
       </h1>
-      <Board rows={20} columns={30} />
+      <Board />
     </>
   )
 }
