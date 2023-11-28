@@ -3,12 +3,16 @@ import Cell from "../cell/Cell";
 import { useRef, useState } from 'react';
 import { generateMatrix } from '../../utils/matrix.util';
 import { getPopulation, nextGeneration } from '../../utils/game-of-life.js';
+import Step from "../../assets/icons/MdiSkipNext.svg";
+import Play from "../../assets/icons/MdiPlay.svg";
+import Pause from "../../assets/icons/MdiPause.svg";
+import styles from "./board.module.scss";
 
 const Board = () => {
 
-  const [boardState, setBoardState] = useState(generateMatrix(9,9));
+  const [boardState, setBoardState] = useState(generateMatrix(80, 130));
   const [generationState, setGenerationState] = useState(0);
-  const [playControlState, setPlayControlState ] = useState('Play');
+  const [playIconState, setPlayIconState] = useState(Play);
 
   const intervalRef = useRef();
 
@@ -19,11 +23,11 @@ const Board = () => {
   }
 
   const handlePlay = () => {
-    if( playControlState === 'Play' ) {
-      setPlayControlState('Pause');
+    if( playIconState === Play ) {
+      setPlayIconState(Pause);
       intervalRef.current = setInterval( ()=> setNextGeneration(), 1000);
     } else {
-      setPlayControlState('Play');
+      setPlayIconState(Play);
       clearInterval(intervalRef.current);
     }
   }
@@ -38,10 +42,36 @@ const Board = () => {
 
   return (
     <>
-      <button style={{width: '80px'}} onClick={handlePlay}>{playControlState}</button>
-      <button style={{width: '80px'}} onClick={handleNextGeneration}>Next step</button>
-      <p><b>{'Generation: '}</b>{generationState}</p>
-      <p><b>{'Population: '}</b>{getPopulation(boardState)}</p>
+      <div className={styles.panelControlWrapper}>
+        <div className={styles.panelBackground}>
+          
+          <div className={styles.controlsButtons}>           
+
+            <button className={styles.control} onClick={handlePlay} title='Play/Pause'>
+              <img src={playIconState} height="64px" />
+            </button>
+            
+            <button className={styles.control} onClick={handleNextGeneration} title='Next generation'>
+              <img src={Step} height="40px"/>
+            </button>
+            
+            <div className={styles.control} >
+              <input type="range" min="1" max="100" title='Speed' />
+            </div>
+            
+          </div>
+          
+          <div className={styles.controlsInfo}>
+              <p className={styles.title}>{`Conway's Game Of Life`}</p>
+              <p className={styles.info}>
+                <span className={styles.infoLabel}>{'Generation: '}</span>{generationState}
+                <span>{' '}</span>
+                <span className={styles.infoLabel}>{'Population: '}</span>{getPopulation(boardState)}
+              </p>
+          </div>
+
+        </div>
+      </div>
       <table>
         <tbody>
         {
