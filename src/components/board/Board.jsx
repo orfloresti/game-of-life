@@ -8,11 +8,17 @@ import Play from "../../assets/icons/MdiPlay.svg";
 import Pause from "../../assets/icons/MdiPause.svg";
 import styles from "./board.module.scss";
 
+const getSpeed = (sliderValue) => {
+  const speedMs = -20 * sliderValue + 2000;
+  return speedMs;
+}
+
 const Board = () => {
 
   const [boardState, setBoardState] = useState(generateMatrix(80, 130));
   const [generationState, setGenerationState] = useState(0);
   const [playIconState, setPlayIconState] = useState(Play);
+  const [speedState, setSpeedState] = useState(100);
 
   const intervalRef = useRef();
 
@@ -25,7 +31,8 @@ const Board = () => {
   const handlePlay = () => {
     if( playIconState === Play ) {
       setPlayIconState(Pause);
-      intervalRef.current = setInterval( ()=> setNextGeneration(), 100);
+      const speedMs = getSpeed(speedState);
+      intervalRef.current = setInterval( ()=> setNextGeneration(), speedMs);
     } else {
       setPlayIconState(Play);
       clearInterval(intervalRef.current);
@@ -37,6 +44,18 @@ const Board = () => {
   const setNextGeneration = () => {
     setBoardState(board => nextGeneration(board));    
     setGenerationState(current => current + 1);
+  }
+
+  const handleSpeedChange = (event) => {
+    const sliderValue = event.target.value
+    setSpeedState(sliderValue);
+
+    // considering the slider from 0 to 100 and the speed from 0 to 2000ms
+    const speedMs = getSpeed(sliderValue);
+
+    // Update interval
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval( ()=> setNextGeneration(), speedMs);
   }
 
 
@@ -56,7 +75,7 @@ const Board = () => {
             </button>
             
             <div className={styles.control} >
-              <input type="range" min="1" max="100" title='Speed' className={styles.speed} />
+              <input type="range" min="1" max="100" title='Speed' value={speedState} onChange={handleSpeedChange} className={styles.speed} />
             </div>
             
           </div>
