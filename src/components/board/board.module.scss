@@ -8,7 +8,7 @@
 }
 
 .panelBackground {
-  background-color: rgba(80, 90, 110, 0.7);
+  background-color: rgba(80, 90, 110, 0.55);
   border-radius: 20px;
   width: 800px;
   display: flex;
@@ -43,6 +43,10 @@
 
 .infoLabel {
   font-weight: 600;
+}
+
+.speed{
+  accent-color: rgba(80, 90, 110, 1);
 }
 
 table {

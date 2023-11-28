@@ -25,7 +25,7 @@ const Board = () => {
   const handlePlay = () => {
     if( playIconState === Play ) {
       setPlayIconState(Pause);
-      intervalRef.current = setInterval( ()=> setNextGeneration(), 1000);
+      intervalRef.current = setInterval( ()=> setNextGeneration(), 100);
     } else {
       setPlayIconState(Play);
       clearInterval(intervalRef.current);
@@ -56,7 +56,7 @@ const Board = () => {
             </button>
             
             <div className={styles.control} >
-              <input type="range" min="1" max="100" title='Speed' />
+              <input type="range" min="1" max="100" title='Speed' className={styles.speed} />
             </div>
             
           </div>
