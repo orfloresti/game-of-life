@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "./dock.module.scss";
 import Step from "../../assets/icons/MdiSkipNext.svg";
-import Information from "./information/information";
+import Information from "./information/Information";
 import Button from "./controls/button/Button";
 import Slider from "./controls/slider/Slider";
 
