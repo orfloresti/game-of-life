@@ -1,12 +1,13 @@
 import { useRef, useState } from "react";
-import Board from "./components/board/Board";
 import { generateMatrix } from "./utils/matrix.util";
 import { nextGeneration } from "./utils/game-of-life";
 import { getSpeed } from "./utils/speed";
+import Board from "./components/board/Board";
 import Play from "./assets/icons/MdiPlay.svg";
 import Pause from "./assets/icons/MdiPause.svg";
+import Dock from "./components/dock/Dock";
 
-function App() {
+const App = () => {
 
   const [boardState, setBoardState] = useState(generateMatrix(80, 130));
   const [generationState, setGenerationState] = useState(0);
@@ -18,7 +19,7 @@ function App() {
   const handleNextGeneration = () => setNextGeneration();
 
   const setNextGeneration = () => {
-    setBoardState(board => nextGeneration(board));    
+    setBoardState(board => nextGeneration(board));
     setGenerationState(current => current + 1);
   }
 
@@ -30,14 +31,14 @@ function App() {
 
     // Update interval
     clearInterval(intervalRef.current);
-    intervalRef.current = setInterval( ()=> setNextGeneration(), speedMs);
+    intervalRef.current = setInterval(() => setNextGeneration(), speedMs);
   }
 
   const handlePlay = () => {
-    if( playIconState === Play ) {
+    if (playIconState === Play) {
       setPlayIconState(Pause);
       const speedMs = getSpeed(speedState);
-      intervalRef.current = setInterval( ()=> setNextGeneration(), speedMs);
+      intervalRef.current = setInterval(() => setNextGeneration(), speedMs);
     } else {
       setPlayIconState(Play);
       clearInterval(intervalRef.current);
@@ -52,16 +53,22 @@ function App() {
 
 
   return (
-    <Board 
-      boardState={boardState}
-      generationState={generationState}
-      playIconState={playIconState}
-      speedState={speedState}
-      onNextGeneration={handleNextGeneration}
-      onChangeSpeed={handleSpeedChange}
-      onPlay={handlePlay}
-      onCellClick={handleCellClick}
-    />
+    <>
+      <Dock
+        boardState={boardState}
+        generationState={generationState}
+        playIconState={playIconState}
+        speedState={speedState}
+        onNextGeneration={handleNextGeneration}
+        onChangeSpeed={handleSpeedChange}
+        onPlay={handlePlay}
+      />
+      <Board
+        boardState={boardState}
+        onCellClick={handleCellClick}
+      />
+      
+    </>
   )
 }
 
