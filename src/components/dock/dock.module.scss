@@ -1,0 +1,21 @@
+.dock {
+  position: fixed;
+  height: 80px;
+  bottom: 30px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.dockContainer {
+  background-color: rgba(80, 90, 110, 0.55);
+  border-radius: 20px;
+  width: 800px;
+  display: flex;
+  align-items: center;
+}
+
+.dockControls {
+  display: flex;
+  align-items: center;
+}
