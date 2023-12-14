@@ -9,6 +9,7 @@
 
 .dockContainer {
   background-color: rgba(80, 90, 110, 0.55);
+  backdrop-filter: blur(8px);
   border-radius: 20px;
   width: 800px;
   display: flex;
